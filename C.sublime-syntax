@@ -152,10 +152,13 @@ contexts:
       scope: keyword.control.c
     - match: \bsizeof\b
       scope: keyword.operator.word.c
-    - match: '\b((?<=\bstruct )([a-zA-Z0-9]+))\b'
+    - match: '((?<=struct )([a-zA-Z0-9_]+))'
       scope: ali.struct.usage
-    - match: '\b([a-zA-Z0-9_]+) \b'
+    - match: '\b[A-za-z0-9_]+(?=\*)\b'
       scope: ali.other.usage
+    - match: '\b[A-Z][A-za-z0-9_]+ \b'
+      scope: ali.other.usage
+
 
   modifiers:
     - match: \b({{modifiers}})\b
@@ -545,10 +548,13 @@ contexts:
               scope: storage.type.c
             - match: '{{identifier}}(?=\s*(\[|,|\)))'
               scope: variable.parameter.c
+            - match: '[A-Za-z0-9_]+'
+              scope: ali.other.usage
             - include: expressions
             - include: preprocessor-line-continuation
     - match: (?=\S)
       pop: true
+
 
   function-definition-continue:
     - meta_content_scope: meta.function.c
@@ -801,6 +807,7 @@ contexts:
               scope: punctuation.separator.c
             - match: '='
               scope: keyword.operator.assignment.c
+
         - match: '\b(appdomain|deprecated|dllimport|dllexport|jintrinsic|naked|noalias|noinline|noreturn|nothrow|novtable|process|restrict|safebuffers|selectany|thread)\b'
           scope: constant.other.c
 
@@ -1352,5 +1359,4 @@ contexts:
               scope: punctuation.definition.string.end.c
               pop: true
     - include: preprocessor-practical-workarounds
-
 
