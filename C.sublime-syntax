@@ -548,8 +548,12 @@ contexts:
               scope: storage.type.c
             - match: '{{identifier}}(?=\s*(\[|,|\)))'
               scope: variable.parameter.c
+            - match: \b{{basic_types}}\b
+              scope: ali.parameter.basic_types
+            - match: \b((?<=struct )([a-zA-Z0-9_]+))\b
+              scope: ali.parameter.struct
             - match: '[A-Za-z0-9_]+'
-              scope: ali.other.usage
+              scope: ali.parameter.usage
             - include: expressions
             - include: preprocessor-line-continuation
     - match: (?=\S)
