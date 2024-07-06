@@ -49,6 +49,7 @@ variables:
   compiler_directive: 'inline|restrict|__restrict__|__restrict'
   modifiers: '{{storage_classes}}|{{type_qualifier}}|{{compiler_directive}}'
   non_func_keywords: 'if|for|switch|while|decltype|typeof|typeof_unqual|sizeof|__declspec|__attribute__'
+  ali_combined_types: '{{basic_types}}|{{microsoft_types}}|{{stdint}}|'
 
 contexts:
   main:
@@ -548,8 +549,10 @@ contexts:
               scope: storage.type.c
             - match: '{{identifier}}(?=\s*(\[|,|\)))'
               scope: variable.parameter.c
-            - match: \b{{basic_types}}\b
+            - match: \b{{ali_combined_types}}\b
               scope: ali.parameter.basic_types
+            - match: \b((?<=enum )([a-zA-Z0-9_]+))\b
+              scope: ali.parameter.enum
             - match: \b((?<=struct )([a-zA-Z0-9_]+))\b
               scope: ali.parameter.struct
             - match: '[A-Za-z0-9_]+'
